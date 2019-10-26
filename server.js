@@ -16,9 +16,12 @@ const mimeType = {
   ".mp3": "audio/mpeg",
   ".svg": "image/svg+xml",
   ".pdf": "application/pdf",
-  ".doc": "application/msword",
   ".eot": "appliaction/vnd.ms-fontobject",
-  ".ttf": "aplication/font-sfnt"
+  ".ttc": "font/collection",
+  ".otf": "font/otf",
+  ".ttf": "font/ttf",
+  ".woff": "font/woff",
+  ".woff2": "font/woff2"
 };
 
 http
@@ -31,7 +34,7 @@ http
     const sanitizePath = path
       .normalize(parsedUrl.pathname)
       .replace(/^(\.\.[\/\\])+/, "");
-      let pathname = path.join(__dirname, sanitizePath);
+    let pathname = path.join(__dirname, sanitizePath);
     let fileExtension = path.parse(sanitizePath).ext;
 
     fs.exists(pathname, exist => {
@@ -39,7 +42,7 @@ http
         res.statusCode = 404;
         res.end(`File ${pathname} not found!`);
         return;
-      else if (!exist) {
+      } else if (!exist) {
         // ship index.html for routes without a file extension e.g. `.js`
         pathname = path.join(__dirname, "/index.html");
         fileExtension = ".html";
