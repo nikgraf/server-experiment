@@ -1,6 +1,6 @@
 // Entry point
 
-include GlobalStyles;
+GlobalStyles.setup();
 
 [@bs.val] external document: Js.t({..}) = "document";
 
